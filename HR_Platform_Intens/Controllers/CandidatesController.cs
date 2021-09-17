@@ -1,6 +1,5 @@
 ﻿using HR_Platform_Intens.DTO;
 using HR_Platform_Intens.Interfaces;
-using HR_Platform_Intens.Models;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 

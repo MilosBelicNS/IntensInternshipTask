@@ -1,72 +1,39 @@
-using AutoMapper;
 using HR_Platform_Intens.Controllers;
 using HR_Platform_Intens.DTO;
 using HR_Platform_Intens.Interfaces;
-using HR_Platform_Intens.Services;
 using Microsoft.AspNetCore.Mvc;
 using Moq;
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web.Http.Results;
 using Xunit;
 
 namespace xUnitTests
 {
     public class CandidateControllerTest
     {
-        //CandidatesController _controller;
-        //ICandidateService _service;
+        
 
-
-        //public CandidateControllerTest()
-        //{
-        //    _service = new CandidateServceFake();//za ovo sam u candidateservicefake morao da napravim prazan konstruktor
-
-        //    //nece da prihvati prazan objekat zato sto tamo prima IMapper mapper
-        //    _controller = new CandidatesController(_service);
-        //}
-        //[Fact]
-        //public void Get_WhenCalled_ReturnsOkResult()
-        //{
-        //    string name = null;
-        //    int skillId = 0;
-        //    // Act
-        //    var okResult = _controller.GetAll(name, skillId);
-        //    // Assert
-        //    Assert.IsType<CandidateResponse>(okResult);
-        //}
-        ////[Fact]
-        ////public void Get_WhenCalled_ReturnsAllItems()
-        ////{
-        ////    string name = null;
-        ////    int skillId = 0;
-        ////    // Act
-        ////    var okResult = _controller.GetAll(name, skillId) as CandidateResponse;
-        ////    // Assert
-        ////    var candidates = Assert.IsType<List<CandidateResponse>>(okResult);
-        ////    Assert.Equal(3, candidates.Count);
-        ////}
-        ///
         [Fact]
         public void GetReturnsProjectWithSameId()
         {
+            CandidateResponse candidate = new CandidateResponse { Id = 42, FullName = "Name1", ContractNumber = 5, Email="name1@mail.com" };
             // Arrange
             var mockService = new Mock<ICandidateService>();
-            mockService.Setup(x => x.GetById(42)).Returns(new CandidateResponse { Id = 42, FullName = "Name1" });
+            mockService.Setup(x => x.GetById(42)).Returns(candidate);
 
             var controller = new CandidatesController(mockService.Object);
 
             //var result = controller.GetById(42);
             // Act
             IActionResult actionResult = controller.GetById(42);
-            var contentResult = actionResult as OkNegotiatedContentResult<CandidateResponse>;
+            var contentResult = actionResult;
 
 
             // Assert
-            Assert.IsType<CandidateResponse>(contentResult.Content);
-            //Assert.NotNull(contentResult);
-            //Assert.NotNull(contentResult);
-            //Assert.IsType<CandidateResponse>(contentResult);
+           
+            Assert.NotNull(contentResult);
+          
         }
 
 
